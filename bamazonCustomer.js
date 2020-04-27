@@ -35,14 +35,14 @@ function menu() {
 			{
 				type:"input",
 				name:"itemPick",
-				message:"Please enter the ID of the item you would like to buy. Type EXIT to exit from the application: "
+				message:"Please enter the ID of the item you would like to buy. Type 0 to exit from the application: "
 			}
 		]).then(function(postedItem){
+			
 			var itemPicked = (postedItem.itemPick - 1);
 			currentItem = res[itemPicked];
-			console.log(currentItem);
 			var itemActuallyPicked = false;
-			if (itemPicked == "EXIT"){
+			if (itemPicked == -1){
 				connection.end();
 			}else{
 				var i;
@@ -71,7 +71,6 @@ function itemAmount(){
 		}
 	]).then(function(postedAmount){
 		var itemAmount = postedAmount.itemAmount;
-		console.log(currentItem.stock_quantity)
 		if( itemAmount <= currentItem.stock_quantity){
 			var query = connection.query(
 				"UPDATE products SET ? WHERE ?",
